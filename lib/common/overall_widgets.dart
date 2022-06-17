@@ -9,10 +9,17 @@ import '../features/favorites/favorites.dart';
 
 class AppBarManager {
   static AppBar mainAppBar(String title, BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return AppBar(
       backgroundColor: Colors.white38,
       shadowColor: Colors.transparent,
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+        ),
+      ),
       iconTheme: const IconThemeData(
         color: Colors.black,
       ),
@@ -44,9 +51,14 @@ class ChangeThemeButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Row(
       children: [
-        const Text('Turn light off', style: TextStyle(fontSize: 15)),
+        Text('Turn light off',
+            style: TextStyle(
+              fontSize: 15,
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+            )),
         Switch.adaptive(
           value: themeProvider.isDarkMode,
           onChanged: (value) {
